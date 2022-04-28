@@ -42,13 +42,13 @@ class App extends React.Component {
     console.log('items: ', this.state.items);
   };
 
+  // delete: items 배열에 title이 일치하는 것 제외하고 다시 저장
   delete = (target) => {
     const thisItems = this.state.items;
-    console.log('Before Delete Items:', thisItems);
-    const newItems = thisItems.filter((item) => item.title !== target);
-    console.log(newItems);
+    console.log('Before Delete Items:', this.state.items);
+    const newItems = thisItems.filter((item) => item.title !== target.title);
     this.setState({ items: newItems }, () => {
-      console.log('After Delete Items:', thisItems);
+      console.log('After Delete Items:', this.state.items);
     });
   };
 
