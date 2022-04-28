@@ -14,18 +14,9 @@ class DeleteBook extends React.Component {
     this.delete = props.delete;
   }
 
-  onButtonClick = () => {
+  deleteEventHandler = () => {
     console.log('delete btn click!');
-    // this.delete(this.state.item.title);
-    this.delete('a');
-    this.setState({
-      item: {
-        title: '',
-        author: '',
-        publisher: '',
-        userId: '',
-      },
-    });
+    this.delete(this.state.item);
   };
 
   onTitleInputChange = (e) => {
@@ -43,7 +34,7 @@ class DeleteBook extends React.Component {
           placeholder="title"
           onChange={this.onTitleInputChange}
         />
-        <button onClick={this.onButtonClick}>제품 삭제</button>
+        <button onClick={this.deleteEventHandler}>제품 삭제</button>
       </div>
     );
   }

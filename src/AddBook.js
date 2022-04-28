@@ -14,7 +14,7 @@ class AddBook extends React.Component {
     this.add = props.add;
   }
 
-  onButtonClick = () => {
+  addEventHandler = () => {
     console.log('add btn click!');
     this.add(this.state.item);
     this.setState({
@@ -78,7 +78,7 @@ class AddBook extends React.Component {
           placeholder="userId"
           onChange={this.onUseridInputChange}
         />
-        <button onClick={this.onButtonClick}>제품 추가</button>
+        <button onClick={this.addEventHandler}>제품 추가</button>
       </div>
     );
   }
