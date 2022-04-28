@@ -6,7 +6,13 @@ class Book extends React.Component {
     this.state = {
       item: props.item,
     };
+    this.delete = props.delete;
   }
+
+  deleteEventHandler = () => {
+    console.log('delete btn click!');
+    this.delete(this.state.item);
+  };
 
   render() {
     const item = this.state.item;
@@ -19,7 +25,7 @@ class Book extends React.Component {
         <td>{item.publisher}</td>
         <td>{item.userId}</td>
         <td>
-          <button>delete</button>
+          <button onClick={this.deleteEventHandler}>delete</button>
         </td>
       </tr>
     );

@@ -67,15 +67,9 @@ class App extends React.Component {
   // update = (target) => {
   //   const thisItems = this.state.items;
   //   console.log('Before Read Items:', this.state.items);
-  //   const newItems = thisItems.filter((item) => {
-  //     if (item.title === target.title) {
-  //       item.title = target.title;
-  //       item.author = target.author;
-  //       item.publisher = target.publisher;
-  //       item.userId = target.userId;
-  //     }
-  //     return;
-  //   });
+
+  //   const newItems = thisItems.map((item) => console.log(item));
+
   //   this.setState({ items: newItems }, () => {
   //     console.log('After Read Items:', this.state.items);
   //   });
@@ -84,7 +78,9 @@ class App extends React.Component {
   render() {
     var bookItems =
       this.state.items.length > 0 &&
-      this.state.items.map((item, _) => <Book item={item} key={item.id} />);
+      this.state.items.map((item, _) => (
+        <Book item={item} key={item.id} delete={this.delete} />
+      ));
 
     return (
       <div>
