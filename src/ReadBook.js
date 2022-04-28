@@ -49,19 +49,19 @@ class ReadBook extends React.Component {
           type="text"
           className="read_author"
           placeholder="author"
-          onChange={this.onAuthorInputChange}
+          disabled
         />
         <input
           type="text"
           className="read_publisher"
           placeholder="publisher"
-          onChange={this.onPublisherInputChange}
+          disabled
         />
         <input
           type="text"
           className="read_userId"
           placeholder="userId"
-          onChange={this.onUseridInputChange}
+          disabled
         />
         <button onClick={this.readEventHandler}>제품 검색</button>
       </div>
