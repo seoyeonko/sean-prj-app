@@ -1,5 +1,6 @@
 import React from 'react';
 import AddBook from './AddBook';
+import DeleteBook from './DeleteBook';
 import Book from './Book';
 
 class App extends React.Component {
@@ -32,6 +33,25 @@ class App extends React.Component {
     };
   }
 
+  // add: items 배열에 상품 item 추가
+  add = (item) => {
+    const thisItems = this.state.items; // [ {}, {}, {}, ... ]
+    item.id = thisItems.length;
+    thisItems.push(item);
+    this.setState({ items: thisItems }); // [ {}, {}, {}, ... , {new!}]
+    console.log('items: ', this.state.items);
+  };
+
+  delete = (target) => {
+    const thisItems = this.state.items;
+    console.log('Before Delete Items:', thisItems);
+    const newItems = thisItems.filter((item) => item.title !== target);
+    console.log(newItems);
+    this.setState({ items: newItems }, () => {
+      console.log('After Delete Items:', thisItems);
+    });
+  };
+
   render() {
     var bookItems =
       this.state.items.length > 0 &&
@@ -39,7 +59,9 @@ class App extends React.Component {
 
     return (
       <div>
-        <AddBook />
+        <AddBook add={this.add} />
+        <br />
+        <DeleteBook delete={this.delete} />
 
         <h4>Book Items Table</h4>
         <table border="1">
