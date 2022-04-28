@@ -1,6 +1,8 @@
 import React from 'react';
 import AddBook from './AddBook';
 import DeleteBook from './DeleteBook';
+import UpdateBook from './UpdateBook';
+import ReadBook from './ReadBook';
 import Book from './Book';
 
 class App extends React.Component {
@@ -52,16 +54,47 @@ class App extends React.Component {
     });
   };
 
+  // read: items 배열에 title이 일치하는 것만 저장
+  read = (target) => {
+    const thisItems = this.state.items;
+    console.log('Before Read Items:', this.state.items);
+    const newItems = thisItems.filter((item) => item.title === target.title);
+    // console.log(newItems);
+    return newItems;
+  };
+
+  // update:
+  // update = (target) => {
+  //   const thisItems = this.state.items;
+  //   console.log('Before Read Items:', this.state.items);
+  //   const newItems = thisItems.filter((item) => {
+  //     if (item.title === target.title) {
+  //       item.title = target.title;
+  //       item.author = target.author;
+  //       item.publisher = target.publisher;
+  //       item.userId = target.userId;
+  //     }
+  //     return;
+  //   });
+  //   this.setState({ items: newItems }, () => {
+  //     console.log('After Read Items:', this.state.items);
+  //   });
+  // };
+
   render() {
     var bookItems =
       this.state.items.length > 0 &&
-      this.state.items.map((item, idx) => <Book item={item} key={item.id} />);
+      this.state.items.map((item, _) => <Book item={item} key={item.id} />);
 
     return (
       <div>
         <AddBook add={this.add} />
         <br />
         <DeleteBook delete={this.delete} />
+        <br />
+        <UpdateBook read={this.read} update={this.update} />
+        <br />
+        <ReadBook read={this.read} />
 
         <h4>Book Items Table</h4>
         <table border="1">
@@ -72,6 +105,7 @@ class App extends React.Component {
               <th>Author</th>
               <th>Publisher</th>
               <th>Userid</th>
+              <th>삭제버튼</th>
             </tr>
           </thead>
           <tbody>{bookItems}</tbody>

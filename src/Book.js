@@ -18,6 +18,9 @@ class Book extends React.Component {
         <td>{item.author}</td>
         <td>{item.publisher}</td>
         <td>{item.userId}</td>
+        <td>
+          <button>delete</button>
+        </td>
       </tr>
     );
   }
