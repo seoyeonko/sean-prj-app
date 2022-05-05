@@ -9,30 +9,26 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      items: [
-        {
-          id: 0,
-          title: '제목1',
-          author: '자까1',
-          publisher: '덕성1',
-          userId: 'seoyeon',
-        },
-        {
-          id: 1,
-          title: '제목2',
-          author: '자까2',
-          publisher: '덕성2',
-          userId: 'seoyeon',
-        },
-        {
-          id: 2,
-          title: '제목3',
-          author: '자까3',
-          publisher: '덕성3',
-          userId: 'seoyeon',
-        },
-      ],
+      items: [],
     };
+  }
+
+  componentDidMount() {
+    console.log('Component Did Mount!');
+
+    const requestOptions = {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+    };
+
+    fetch('http://localhost:8080/book', requestOptions)
+      .then((response) => response.json())
+      .then((response) => {
+        console.log(response);
+        this.setState({
+          items: response.data,
+        });
+      });
   }
 
   // add: items 배열에 상품 item 추가
@@ -93,7 +89,8 @@ class App extends React.Component {
         <ReadBook read={this.read} />
 
         <h4>Book Items Table</h4>
-        <table border="1">
+        {/* <table border="1"> */}
+        <table>
           <thead>
             <tr>
               <th>Id</th>
