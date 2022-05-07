@@ -5,6 +5,7 @@ class UpdateBook extends React.Component {
     super(props);
     this.state = {
       item: {
+        // id: '',
         title: '',
         author: '',
         publisher: '',
@@ -18,7 +19,7 @@ class UpdateBook extends React.Component {
   readEventHandler = () => {
     console.log('read btn click!');
     const target = this.read(this.state.item);
-    console.log(target);
+    // console.log(target);
 
     const title_input = document.querySelector('.update_title');
     const author_input = document.querySelector('.update_author');
@@ -26,7 +27,7 @@ class UpdateBook extends React.Component {
     const userId_input = document.querySelector('.update_userId');
     const promise1 = Promise.resolve(target);
 
-    // primise 객체의 값에 하나씩 접근
+    // promise 객체의 값에 하나씩 접근
     promise1.then((val) => {
       console.log(val);
 
@@ -52,7 +53,7 @@ class UpdateBook extends React.Component {
     thisItem.userId = userId_input.value;
 
     console.log(thisItem);
-    this.update(this.state.item);
+    this.update(thisItem); // this.update(this.state.item);
   };
 
   onTitleInputChange = (e) => {

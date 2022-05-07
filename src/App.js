@@ -73,8 +73,8 @@ class App extends React.Component {
 
     await call('/book/read', 'POST', target).then((response) => {
       this.setState({ items: response.data });
-      console.log(response.data); // [{}]: 한 권의 책이 나옴
-      console.log(response.data[0]); // {}: 한 권의 책이 나옴
+      // console.log(response.data); // [{}]: 한 권의 책이 나옴
+      // console.log(response.data[0]); // {}: 한 권의 책이 나옴
 
       book = {
         title: response.data[0].title,
@@ -83,7 +83,7 @@ class App extends React.Component {
         userId: response.data[0].userId,
       };
     });
-    console.log(book);
+    // console.log(book);
 
     return book;
     // book={} object 값 할당이 call 함수보다 먼저 실행 (비동기 -> 이거 해결해야 readBook.js 컴포넌트에서 target값을 제대로 리턴받을 듯)
@@ -115,8 +115,6 @@ class App extends React.Component {
     console.log('click reset input btn!');
 
     const inputs = document.getElementsByTagName('input');
-    console.log(inputs);
-
     for (let i = 0; i < inputs.length; i++) inputs[i].value = '';
   };
 
