@@ -11,15 +11,6 @@ class App extends React.Component {
     super(props);
     this.state = {
       items: [],
-      readItem: [
-        {
-          id: '',
-          title: '',
-          author: '',
-          publisher: '',
-          userId: '',
-        },
-      ],
     };
   }
 
@@ -78,20 +69,13 @@ class App extends React.Component {
   // read: items 배열에 title이 일치하는 것만 저장
   read = async (target) => {
     // Get - 한 권의 책 조회
+    let book;
 
-    let book; // 1)
-    // var that;
     await call('/book/read', 'POST', target).then((response) => {
-      // this.setState({ items: response.data });
-
-      // that = response.data[0];
-      // console.log('that', that);
-
       this.setState({ items: response.data });
       console.log(response.data); // 한 권의 책이 나옴
       console.log(response.data[0]); // 한 권의 책이 나옴
 
-      // 1)
       book = {
         title: response.data[0].title,
         author: response.data[0].author,
@@ -99,21 +83,10 @@ class App extends React.Component {
         userId: response.data[0].userId,
       };
     });
-    // 1)
     console.log(book);
+
     return book;
-    // 93번 라인이 74번의 call 함수보다 먼저 실행 (비동기 -> 이거 해결해야 readBook.js 컴포넌트에서 target값ㅇㄹ 제대로 리턴받을 듯)
-
-    // 2)
-    // return this.state.items;
-
-    // return that;
-
-    // const thisItems = this.state.items;
-    // console.log('Before Read Items:', this.state.items);
-    // const newItems = thisItems.filter((item) => item.title === target.title);
-    // // console.log(newItems);
-    // return newItems;
+    // book={} object 값 할당이 call 함수보다 먼저 실행 (비동기 -> 이거 해결해야 readBook.js 컴포넌트에서 target값을 제대로 리턴받을 듯)
   };
 
   // update:
