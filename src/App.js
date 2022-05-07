@@ -68,35 +68,25 @@ class App extends React.Component {
   read = (target) => {
     // Get- 한 권의 책 조회
 
-    // let tit, auth, pub, userid, book;
-    let book;
+    // let book;
 
-    call('/book/read', 'POST', target)
-      .then((response) => {
-        this.setState({ items: response.data });
-        console.log(response.data); // 한 권의 책이 나옴
-        console.log(response.data[0]); // 한 권의 책이 나옴
+    call('/book/read', 'POST', target).then((response) => {
+      this.setState({ items: response.data });
+      console.log(response.data); // 한 권의 책이 나옴
+      console.log(response.data[0]); // 한 권의 책이 나옴
 
-        // tit = response.data[0].title;
-        // auth = response.data[0].author;
-        // pub = response.data[0].publisher;
-        // userid = response.data[0].userId;
-
-        book = {
-          title: response.data[0].title,
-          author: response.data[0].author,
-          publisher: response.data[0].publisher,
-          userId: response.data[0].userId,
-        };
-      })
-      .then((result) => {
-        return result;
-      });
-    console.log(book);
-    return book;
+      // book = {
+      //   title: response.data[0].title,
+      //   author: response.data[0].author,
+      //   publisher: response.data[0].publisher,
+      //   userId: response.data[0].userId,
+      // };
+    });
+    // console.log(book);
+    // return book;
     // 93번 라인이 74번의 call 함수보다 먼저 실행 (비동기 -> 이거 해결해야 readBook.js 컴포넌트에서 target값ㅇㄹ 제대로 리턴받을 듯)
 
-    // return this.state.items;
+    return this.state.items;
 
     // const thisItems = this.state.items;
     // console.log('Before Read Items:', this.state.items);
