@@ -104,6 +104,7 @@ class App extends React.Component {
   findAll = () => {
     console.log('click find all btn!');
 
+    this.resetInput();
     call('/book', 'GET', null).then((response) =>
       this.setState({ items: response.data })
     );
