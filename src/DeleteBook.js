@@ -22,8 +22,10 @@ class DeleteBook extends React.Component {
   onTitleInputChange = (e) => {
     const thisItem = this.state.item;
     thisItem.title = e.target.value;
+    console.log(thisItem.title);
+
     this.setState({ item: thisItem });
-    // console.log(thisItem);
+    console.log(thisItem);
   };
 
   render() {

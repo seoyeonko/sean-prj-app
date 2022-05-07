@@ -17,6 +17,9 @@ export function call(api, method, request) {
     options.body = JSON.stringify(request);
   }
 
+  // console.log('request:', request);
+  // console.log('options.body:', options.body);
+
   return fetch(options.url, options)
     .then((response) =>
       response.json().then((json) => {

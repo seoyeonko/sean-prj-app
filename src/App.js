@@ -11,6 +11,15 @@ class App extends React.Component {
     super(props);
     this.state = {
       items: [],
+      readItem: [
+        {
+          id: '',
+          title: '',
+          author: '',
+          publisher: '',
+          userId: '',
+        },
+      ],
     };
   }
 
@@ -52,9 +61,11 @@ class App extends React.Component {
 
   // delete: items 배열에 title이 일치하는 것 제외하고 다시 저장
   delete = (target) => {
-    call('/book', 'DELETE', target).then((response) =>
-      this.setState({ items: response.data })
-    );
+    call('/book', 'DELETE', target).then((response) => {
+      console.log(target);
+      console.log(response);
+      this.setState({ items: response.data });
+    });
 
     // const thisItems = this.state.items;
     // console.log('Before Delete Items:', this.state.items);
@@ -65,28 +76,38 @@ class App extends React.Component {
   };
 
   // read: items 배열에 title이 일치하는 것만 저장
-  read = (target) => {
-    // Get- 한 권의 책 조회
+  read = async (target) => {
+    // Get - 한 권의 책 조회
 
-    // let book;
+    let book; // 1)
+    // var that;
+    await call('/book/read', 'POST', target).then((response) => {
+      // this.setState({ items: response.data });
 
-    call('/book/read', 'POST', target).then((response) => {
+      // that = response.data[0];
+      // console.log('that', that);
+
       this.setState({ items: response.data });
       console.log(response.data); // 한 권의 책이 나옴
       console.log(response.data[0]); // 한 권의 책이 나옴
 
-      // book = {
-      //   title: response.data[0].title,
-      //   author: response.data[0].author,
-      //   publisher: response.data[0].publisher,
-      //   userId: response.data[0].userId,
-      // };
+      // 1)
+      book = {
+        title: response.data[0].title,
+        author: response.data[0].author,
+        publisher: response.data[0].publisher,
+        userId: response.data[0].userId,
+      };
     });
-    // console.log(book);
-    // return book;
+    // 1)
+    console.log(book);
+    return book;
     // 93번 라인이 74번의 call 함수보다 먼저 실행 (비동기 -> 이거 해결해야 readBook.js 컴포넌트에서 target값ㅇㄹ 제대로 리턴받을 듯)
 
-    return this.state.items;
+    // 2)
+    // return this.state.items;
+
+    // return that;
 
     // const thisItems = this.state.items;
     // console.log('Before Read Items:', this.state.items);
@@ -97,9 +118,13 @@ class App extends React.Component {
 
   // update:
   update = (target) => {
-    call('/book', 'PUT', target).then((response) =>
-      this.setState({ items: response.data })
-    );
+    call('/book', 'PUT', target).then((response) => {
+      console.log(target);
+      console.log(response); // undefined
+      // console.log(response.data);
+      this.setState({ items: response.data });
+    });
+    console.log(this.state.items);
   };
 
   render() {

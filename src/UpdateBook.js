@@ -18,25 +18,40 @@ class UpdateBook extends React.Component {
   readEventHandler = () => {
     console.log('read btn click!');
     const target = this.read(this.state.item);
+    console.log(target);
+
+    const title_input = document.querySelector('.update_title');
+    const author_input = document.querySelector('.update_author');
+    const publisher_input = document.querySelector('.update_publisher');
+    const userId_input = document.querySelector('.update_userId');
+    const promise1 = Promise.resolve(target);
+
+    // primise 객체의 값에 하나씩 접근
+    promise1.then((val) => {
+      console.log(val);
+
+      title_input.value = val.title;
+      author_input.value = val.author;
+      publisher_input.value = val.publisher;
+      userId_input.value = val.userId;
+    });
+  };
+
+  updateEventHandler = () => {
+    console.log('update btn click!');
+    const thisItem = this.state.item;
 
     const title_input = document.querySelector('.update_title');
     const author_input = document.querySelector('.update_author');
     const publisher_input = document.querySelector('.update_publisher');
     const userId_input = document.querySelector('.update_userId');
 
-    title_input.value = target[0].title;
-    author_input.value = target[0].author;
-    publisher_input.value = target[0].publisher;
-    userId_input.value = target[0].userId;
-  };
+    thisItem.title = title_input.value;
+    thisItem.author = author_input.value;
+    thisItem.publisher = publisher_input.value;
+    thisItem.userId = userId_input.value;
 
-  updateEventHandler = (e) => {
-    console.log('update btn click!');
-    const thisItem = this.state.item;
-    thisItem.title = e.target.value;
-    thisItem.author = e.target.value;
-    thisItem.publisher = e.target.value;
-    thisItem.userId = e.target.value;
+    console.log(thisItem);
     this.update(this.state.item);
   };
 
@@ -44,28 +59,28 @@ class UpdateBook extends React.Component {
     const thisItem = this.state.item;
     thisItem.title = e.target.value;
     this.setState({ item: thisItem });
-    // console.log(thisItem);
+    console.log(thisItem);
   };
 
   onAuthorInputChange = (e) => {
     const thisItem = this.state.item;
     thisItem.author = e.target.value;
     this.setState({ item: thisItem });
-    // console.log(thisItem);
+    console.log(thisItem);
   };
 
   onPublisherInputChange = (e) => {
     const thisItem = this.state.item;
     thisItem.publisher = e.target.value;
     this.setState({ item: thisItem });
-    // console.log(thisItem);
+    console.log(thisItem);
   };
 
   onUseridInputChange = (e) => {
     const thisItem = this.state.item;
     thisItem.userId = e.target.value;
     this.setState({ item: thisItem });
-    // console.log(thisItem);
+    console.log(thisItem);
   };
 
   render() {
