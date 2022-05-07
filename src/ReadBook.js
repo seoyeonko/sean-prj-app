@@ -16,13 +16,17 @@ class ReadBook extends React.Component {
 
   readEventHandler = () => {
     console.log('read btn click!');
+    console.log(this.state.item);
     const target = this.read(this.state.item);
+    console.log(target);
 
     const title_input = document.querySelector('.read_title');
     const author_input = document.querySelector('.read_author');
     const publisher_input = document.querySelector('.read_publisher');
     const userId_input = document.querySelector('.read_userId');
 
+    // target 배열에서 this.state.item.title 과 동일한 것을 추출
+    // const test = target.filter((item) => item.title === target.title);
     title_input.value = target[0].title;
     author_input.value = target[0].author;
     publisher_input.value = target[0].publisher;

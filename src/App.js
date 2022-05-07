@@ -4,6 +4,7 @@ import DeleteBook from './DeleteBook';
 import UpdateBook from './UpdateBook';
 import ReadBook from './ReadBook';
 import Book from './Book';
+import { call } from './service/ApiService';
 
 class App extends React.Component {
   constructor(props) {
@@ -16,60 +17,100 @@ class App extends React.Component {
   componentDidMount() {
     console.log('Component Did Mount!');
 
-    const requestOptions = {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json' },
-    };
+    // Get- 전체 조회
+    call('/book', 'GET', null).then((response) =>
+      this.setState({ items: response.data })
+    );
 
-    fetch('http://localhost:8080/book', requestOptions)
-      .then((response) => response.json())
-      .then((response) => {
-        console.log(response);
-        this.setState({
-          items: response.data,
-        });
-      });
+    // const requestOptions = {
+    //   method: 'GET',
+    //   headers: { 'Content-Type': 'application/json' },
+    // };
+
+    // fetch('http://localhost:8080/book', requestOptions)
+    //   .then((response) => response.json())
+    //   .then((response) => {
+    //     console.log(response);
+    //     this.setState({
+    //       items: response.data,
+    //     });
+    //   });
   }
 
   // add: items 배열에 상품 item 추가
   add = (item) => {
-    const thisItems = this.state.items; // [ {}, {}, {}, ... ]
-    item.id = thisItems.length;
-    thisItems.push(item);
-    this.setState({ items: thisItems }); // [ {}, {}, {}, ... , {new!}]
-    console.log('items: ', this.state.items);
+    call('/book', 'POST', item).then((response) =>
+      this.setState({ items: response.data })
+    );
+
+    // const thisItems = this.state.items; // [ {}, {}, {}, ... ]
+    // item.id = thisItems.length;
+    // thisItems.push(item);
+    // this.setState({ items: thisItems }); // [ {}, {}, {}, ... , {new!}]
+    // console.log('items: ', this.state.items);
   };
 
   // delete: items 배열에 title이 일치하는 것 제외하고 다시 저장
   delete = (target) => {
-    const thisItems = this.state.items;
-    console.log('Before Delete Items:', this.state.items);
-    const newItems = thisItems.filter((item) => item.title !== target.title);
-    this.setState({ items: newItems }, () => {
-      console.log('After Delete Items:', this.state.items);
-    });
+    call('/book', 'DELETE', target).then((response) =>
+      this.setState({ items: response.data })
+    );
+
+    // const thisItems = this.state.items;
+    // console.log('Before Delete Items:', this.state.items);
+    // const newItems = thisItems.filter((item) => item.title !== target.title);
+    // this.setState({ items: newItems }, () => {
+    //   console.log('After Delete Items:', this.state.items);
+    // });
   };
 
   // read: items 배열에 title이 일치하는 것만 저장
   read = (target) => {
-    const thisItems = this.state.items;
-    console.log('Before Read Items:', this.state.items);
-    const newItems = thisItems.filter((item) => item.title === target.title);
-    // console.log(newItems);
-    return newItems;
+    // Get- 한 권의 책 조회
+
+    // let tit, auth, pub, userid, book;
+    let book;
+
+    call('/book/read', 'POST', target)
+      .then((response) => {
+        this.setState({ items: response.data });
+        console.log(response.data); // 한 권의 책이 나옴
+        console.log(response.data[0]); // 한 권의 책이 나옴
+
+        // tit = response.data[0].title;
+        // auth = response.data[0].author;
+        // pub = response.data[0].publisher;
+        // userid = response.data[0].userId;
+
+        book = {
+          title: response.data[0].title,
+          author: response.data[0].author,
+          publisher: response.data[0].publisher,
+          userId: response.data[0].userId,
+        };
+      })
+      .then((result) => {
+        return result;
+      });
+    console.log(book);
+    return book;
+    // 93번 라인이 74번의 call 함수보다 먼저 실행 (비동기 -> 이거 해결해야 readBook.js 컴포넌트에서 target값ㅇㄹ 제대로 리턴받을 듯)
+
+    // return this.state.items;
+
+    // const thisItems = this.state.items;
+    // console.log('Before Read Items:', this.state.items);
+    // const newItems = thisItems.filter((item) => item.title === target.title);
+    // // console.log(newItems);
+    // return newItems;
   };
 
   // update:
-  // update = (target) => {
-  //   const thisItems = this.state.items;
-  //   console.log('Before Read Items:', this.state.items);
-
-  //   const newItems = thisItems.map((item) => console.log(item));
-
-  //   this.setState({ items: newItems }, () => {
-  //     console.log('After Read Items:', this.state.items);
-  //   });
-  // };
+  update = (target) => {
+    call('/book', 'PUT', target).then((response) =>
+      this.setState({ items: response.data })
+    );
+  };
 
   render() {
     var bookItems =
@@ -89,8 +130,7 @@ class App extends React.Component {
         <ReadBook read={this.read} />
 
         <h4>Book Items Table</h4>
-        {/* <table border="1"> */}
-        <table>
+        <table border="1">
           <thead>
             <tr>
               <th>Id</th>
