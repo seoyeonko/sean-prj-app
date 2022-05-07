@@ -15,7 +15,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    console.log('Component Did Mount!');
+    // console.log('Component Did Mount!');
 
     // Get- 전체 조회
     call('/book', 'GET', null).then((response) =>
@@ -73,8 +73,8 @@ class App extends React.Component {
 
     await call('/book/read', 'POST', target).then((response) => {
       this.setState({ items: response.data });
-      console.log(response.data); // 한 권의 책이 나옴
-      console.log(response.data[0]); // 한 권의 책이 나옴
+      console.log(response.data); // [{}]: 한 권의 책이 나옴
+      console.log(response.data[0]); // {}: 한 권의 책이 나옴
 
       book = {
         title: response.data[0].title,
@@ -100,6 +100,25 @@ class App extends React.Component {
     console.log(this.state.items);
   };
 
+  // 부가 기능1 - 전체 상품 조회 버튼
+  findAll = () => {
+    console.log('click find all btn!');
+
+    call('/book', 'GET', null).then((response) =>
+      this.setState({ items: response.data })
+    );
+  };
+
+  // 부가 기능2 - input 초기화 버튼
+  resetInput = () => {
+    console.log('click reset input btn!');
+
+    const inputs = document.getElementsByTagName('input');
+    console.log(inputs);
+
+    for (let i = 0; i < inputs.length; i++) inputs[i].value = '';
+  };
+
   render() {
     var bookItems =
       this.state.items.length > 0 &&
@@ -109,6 +128,9 @@ class App extends React.Component {
 
     return (
       <div>
+        <button onClick={this.findAll}>전체 상품 조회</button>
+        <button onClick={this.resetInput}>입력창 초기화</button>
+
         <AddBook add={this.add} />
         <br />
         <DeleteBook delete={this.delete} />
