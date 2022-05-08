@@ -5,7 +5,7 @@ class UpdateBook extends React.Component {
     super(props);
     this.state = {
       item: {
-        // id: '',
+        id: '',
         title: '',
         author: '',
         publisher: '',
@@ -14,6 +14,7 @@ class UpdateBook extends React.Component {
     };
     this.read = props.read;
     this.update = props.update;
+    this.findAll = props.findAll;
   }
 
   readEventHandler = () => {
@@ -25,11 +26,12 @@ class UpdateBook extends React.Component {
     const author_input = document.querySelector('.update_author');
     const publisher_input = document.querySelector('.update_publisher');
     const userId_input = document.querySelector('.update_userId');
-    const promise1 = Promise.resolve(target);
+    const promise1 = Promise.resolve(target); // https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Promise/resolve
 
     // promise 객체의 값에 하나씩 접근
     promise1.then((val) => {
-      console.log(val);
+      // console.log(val);
+      // console.log(this.state.items);
 
       title_input.value = val.title;
       author_input.value = val.author;
@@ -38,7 +40,7 @@ class UpdateBook extends React.Component {
     });
   };
 
-  updateEventHandler = () => {
+  updateEventHandler = async () => {
     console.log('update btn click!');
     const thisItem = this.state.item;
 
@@ -53,7 +55,34 @@ class UpdateBook extends React.Component {
     thisItem.userId = userId_input.value;
 
     console.log(thisItem);
-    this.update(thisItem); // this.update(this.state.item);
+
+    // -------
+    // let allBooks = this.update(thisItem); // this.update(this.state.item);
+    // const promise1 = Promise.resolve(allBooks); // https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Promise/resolve
+
+    // // primise 객체의 값에 하나씩 접근
+    // promise1.then((val) => {
+    //   console.log('HERE: ', val);
+
+    //   let updateTargetId = val[0].id;
+    //   console.log(updateTargetId);
+
+    //   thisItem.id = updateTargetId;
+    // });
+
+    let findAll = this.findAll();
+    const promise1 = Promise.resolve(findAll); // https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Promise/resolve
+
+    // primise 객체의 값에 하나씩 접근
+    await promise1.then((val) => {
+      console.log('HERE: ', val);
+
+      let updateTargetId = val[0].id;
+      thisItem.id = updateTargetId;
+    });
+    console.log('thisItem: ', thisItem);
+
+    this.update(thisItem);
   };
 
   onTitleInputChange = (e) => {

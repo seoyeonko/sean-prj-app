@@ -92,22 +92,28 @@ class App extends React.Component {
   // update:
   update = (target) => {
     call('/book', 'PUT', target).then((response) => {
-      console.log(target);
-      console.log(response); // undefined
+      // console.log(target);
+      // console.log(response); // undefined
       // console.log(response.data);
       this.setState({ items: response.data });
     });
-    console.log(this.state.items);
+    // console.log(this.state.items);
   };
 
   // 부가 기능1 - 전체 상품 조회 버튼
-  findAll = () => {
+  findAll = async () => {
     console.log('click find all btn!');
 
     this.resetInput();
-    call('/book', 'GET', null).then((response) =>
-      this.setState({ items: response.data })
-    );
+    let allBooks;
+
+    await call('/book', 'GET', null).then((response) => {
+      this.setState({ items: response.data });
+      allBooks = this.state.items;
+    });
+
+    // console.log('allBooks: ', allBooks);
+    return allBooks;
   };
 
   // 부가 기능2 - input 초기화 버튼
@@ -134,7 +140,12 @@ class App extends React.Component {
         <br />
         <DeleteBook delete={this.delete} />
         <br />
-        <UpdateBook read={this.read} update={this.update} />
+        <UpdateBook
+          read={this.read}
+          update={this.update}
+          items={this.state.items}
+          findAll={this.findAll}
+        />
         <br />
         <ReadBook read={this.read} />
 

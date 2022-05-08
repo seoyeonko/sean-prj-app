@@ -24,7 +24,7 @@ class ReadBook extends React.Component {
     const author_input = document.querySelector('.read_author');
     const publisher_input = document.querySelector('.read_publisher');
     const userId_input = document.querySelector('.read_userId');
-    const promise1 = Promise.resolve(target);
+    const promise1 = Promise.resolve(target); // https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Promise/resolve
 
     // primise 객체의 값에 하나씩 접근
     promise1.then((val) => {
