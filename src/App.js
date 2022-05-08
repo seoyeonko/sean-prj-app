@@ -37,6 +37,22 @@ class App extends React.Component {
 
   // READ
   read = async (target) => {
+    // 전체 책 조회
+    let book;
+
+    await call('/book/read', 'POST', target).then((response) => {
+      book = {
+        title: response.data[0].title,
+        author: response.data[0].author,
+        publisher: response.data[0].publisher,
+        userId: response.data[0].userId,
+      };
+    });
+
+    return book;
+  };
+
+  readOne = async (target) => {
     // 한 권의 책 조회
     let book;
 
@@ -61,7 +77,7 @@ class App extends React.Component {
     });
   };
 
-  // 부가 기능1: 전체 상품 조회 버튼
+  // 부가 기능1: 전체 상품 조회
   findAll = async () => {
     let allBooks;
     this.resetInput();
@@ -73,7 +89,7 @@ class App extends React.Component {
     return allBooks;
   };
 
-  // 부가 기능2: input 초기화 버튼
+  // 부가 기능2: input 초기화
   resetInput = () => {
     const inputs = document.getElementsByTagName('input');
     for (let i = 0; i < inputs.length; i++) inputs[i].value = '';
@@ -88,13 +104,12 @@ class App extends React.Component {
 
     return (
       <div>
-        <button onClick={this.findAll}>전체 상품 조회</button>
         <button onClick={this.resetInput}>입력창 초기화</button>
 
         <AddBook add={this.add} />
         <ReadBook read={this.read} />
         <UpdateBook
-          read={this.read}
+          readOne={this.readOne}
           update={this.update}
           findAll={this.findAll}
         />

@@ -12,14 +12,14 @@ class UpdateBook extends React.Component {
         userId: '',
       },
     };
-    this.read = props.read;
+    this.readOne = props.readOne;
     this.update = props.update;
     this.findAll = props.findAll;
   }
 
   readEventHandler = () => {
     console.log('read btn click!');
-    const target = this.read(this.state.item);
+    const target = this.readOne(this.state.item);
     const title_input = document.querySelector('.update_title');
     const author_input = document.querySelector('.update_author');
     const publisher_input = document.querySelector('.update_publisher');
