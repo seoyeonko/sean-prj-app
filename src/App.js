@@ -101,14 +101,13 @@ class App extends React.Component {
         <button onClick={this.resetInput}>입력창 초기화</button>
 
         <AddBook add={this.add} />
-        <DeleteBook delete={this.delete} />
+        <ReadBook read={this.read} />
         <UpdateBook
-          items={this.state.items}
           read={this.read}
           update={this.update}
           findAll={this.findAll}
         />
-        <ReadBook read={this.read} />
+        <DeleteBook delete={this.delete} />
 
         <h1>Book Items Table</h1>
         <table border="1">
