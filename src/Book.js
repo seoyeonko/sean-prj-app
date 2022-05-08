@@ -11,7 +11,6 @@ class Book extends React.Component {
 
   // book item 수정; update값 바로 적용
   componentDidUpdate(prevProp) {
-    // console.log('Component Did Update!');
     let updateData = this.props.item;
     let originData = prevProp.item;
 

@@ -24,7 +24,7 @@ class UpdateBook extends React.Component {
     const author_input = document.querySelector('.update_author');
     const publisher_input = document.querySelector('.update_publisher');
     const userId_input = document.querySelector('.update_userId');
-    const promise1 = Promise.resolve(target); // https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Promise/resolve
+    const promise1 = Promise.resolve(target);
 
     // promise 객체의 값에 하나씩 접근
     promise1.then((val) => {
@@ -47,18 +47,14 @@ class UpdateBook extends React.Component {
     thisItem.author = author_input.value;
     thisItem.publisher = publisher_input.value;
     thisItem.userId = userId_input.value;
-    // console.log(thisItem);
 
     let findAll = this.findAll();
-    const promise1 = Promise.resolve(findAll); // https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Promise/resolve
-
-    // primise 객체의 값에 하나씩 접근
+    const promise1 = Promise.resolve(findAll);
+    // promise 객체의 값에 하나씩 접근
     await promise1.then((val) => {
-      // console.log('HERE: ', val);
       let updateTargetId = val[0].id;
       thisItem.id = updateTargetId;
     });
-    // console.log('thisItem: ', thisItem);
     this.update(thisItem);
   };
 
@@ -66,28 +62,24 @@ class UpdateBook extends React.Component {
     const thisItem = this.state.item;
     thisItem.title = e.target.value;
     this.setState({ item: thisItem });
-    // console.log(thisItem);
   };
 
   onAuthorInputChange = (e) => {
     const thisItem = this.state.item;
     thisItem.author = e.target.value;
     this.setState({ item: thisItem });
-    // console.log(thisItem);
   };
 
   onPublisherInputChange = (e) => {
     const thisItem = this.state.item;
     thisItem.publisher = e.target.value;
     this.setState({ item: thisItem });
-    // console.log(thisItem);
   };
 
   onUseridInputChange = (e) => {
     const thisItem = this.state.item;
     thisItem.userId = e.target.value;
     this.setState({ item: thisItem });
-    // console.log(thisItem);
   };
 
   render() {

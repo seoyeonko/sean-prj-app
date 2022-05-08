@@ -21,14 +21,10 @@ class ReadBook extends React.Component {
     const author_input = document.querySelector('.read_author');
     const publisher_input = document.querySelector('.read_publisher');
     const userId_input = document.querySelector('.read_userId');
-    const promise1 = Promise.resolve(target); // https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Promise/resolve
-
-    // console.log(target);
+    const promise1 = Promise.resolve(target);
 
     // primise 객체의 값에 하나씩 접근
     promise1.then((val) => {
-      // console.log(val);
-
       title_input.value = val.title;
       author_input.value = val.author;
       publisher_input.value = val.publisher;
@@ -40,7 +36,6 @@ class ReadBook extends React.Component {
     const thisItem = this.state.item;
     thisItem.title = e.target.value;
     this.setState({ item: thisItem });
-    // console.log(thisItem);
   };
 
   render() {

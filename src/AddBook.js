@@ -31,28 +31,24 @@ class AddBook extends React.Component {
     const thisItem = this.state.item;
     thisItem.title = e.target.value;
     this.setState({ item: thisItem });
-    // console.log(thisItem);
   };
 
   onAuthorInputChange = (e) => {
     const thisItem = this.state.item;
     thisItem.author = e.target.value;
     this.setState({ item: thisItem });
-    // console.log(thisItem);
   };
 
   onPublisherInputChange = (e) => {
     const thisItem = this.state.item;
     thisItem.publisher = e.target.value;
     this.setState({ item: thisItem });
-    // console.log(thisItem);
   };
 
   onUseridInputChange = (e) => {
     const thisItem = this.state.item;
     thisItem.userId = e.target.value;
     this.setState({ item: thisItem });
-    // console.log(thisItem);
   };
 
   render() {

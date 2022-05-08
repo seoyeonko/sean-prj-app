@@ -31,8 +31,6 @@ class App extends React.Component {
   // DELETE
   delete = (target) => {
     call('/book', 'DELETE', target).then((response) => {
-      // console.log(target);
-      // console.log(response);
       this.setState({ items: response.data });
     });
   };
@@ -44,8 +42,6 @@ class App extends React.Component {
 
     await call('/book/read', 'POST', target).then((response) => {
       this.setState({ items: response.data });
-      // console.log(response.data); // [{}]: 한 권의 책이 나옴
-      // console.log(response.data[0]); // {}: 한 권의 책이 나옴
 
       book = {
         title: response.data[0].title,
@@ -56,18 +52,13 @@ class App extends React.Component {
     });
 
     return book;
-    // book={} object 값 할당이 call 함수보다 먼저 실행 (비동기 -> 이거 해결해야 readBook.js 컴포넌트에서 target값을 제대로 리턴받을 듯)
   };
 
   // UPDATE
   update = (target) => {
     call('/book', 'PUT', target).then((response) => {
-      // console.log(target);
-      // console.log(response);
-      // console.log(response.data);
       this.setState({ items: response.data });
     });
-    // console.log(this.state.items);
   };
 
   // 부가 기능1: 전체 상품 조회 버튼
