@@ -15,60 +15,31 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    // console.log('Component Did Mount!');
-
-    // Get- 전체 조회
+    // GET: 전체 책 조회
     call('/book', 'GET', null).then((response) =>
       this.setState({ items: response.data })
     );
-
-    // const requestOptions = {
-    //   method: 'GET',
-    //   headers: { 'Content-Type': 'application/json' },
-    // };
-
-    // fetch('http://localhost:8080/book', requestOptions)
-    //   .then((response) => response.json())
-    //   .then((response) => {
-    //     console.log(response);
-    //     this.setState({
-    //       items: response.data,
-    //     });
-    //   });
   }
 
-  // add: items 배열에 상품 item 추가
+  // ADD
   add = (item) => {
     call('/book', 'POST', item).then((response) =>
       this.setState({ items: response.data })
     );
-
-    // const thisItems = this.state.items; // [ {}, {}, {}, ... ]
-    // item.id = thisItems.length;
-    // thisItems.push(item);
-    // this.setState({ items: thisItems }); // [ {}, {}, {}, ... , {new!}]
-    // console.log('items: ', this.state.items);
   };
 
-  // delete: items 배열에 title이 일치하는 것 제외하고 다시 저장
+  // DELETE
   delete = (target) => {
     call('/book', 'DELETE', target).then((response) => {
-      console.log(target);
-      console.log(response);
+      // console.log(target);
+      // console.log(response);
       this.setState({ items: response.data });
     });
-
-    // const thisItems = this.state.items;
-    // console.log('Before Delete Items:', this.state.items);
-    // const newItems = thisItems.filter((item) => item.title !== target.title);
-    // this.setState({ items: newItems }, () => {
-    //   console.log('After Delete Items:', this.state.items);
-    // });
   };
 
-  // read: items 배열에 title이 일치하는 것만 저장
+  // READ
   read = async (target) => {
-    // Get - 한 권의 책 조회
+    // 한 권의 책 조회
     let book;
 
     await call('/book/read', 'POST', target).then((response) => {
@@ -83,49 +54,42 @@ class App extends React.Component {
         userId: response.data[0].userId,
       };
     });
-    // console.log(book);
 
     return book;
     // book={} object 값 할당이 call 함수보다 먼저 실행 (비동기 -> 이거 해결해야 readBook.js 컴포넌트에서 target값을 제대로 리턴받을 듯)
   };
 
-  // update:
+  // UPDATE
   update = (target) => {
     call('/book', 'PUT', target).then((response) => {
       // console.log(target);
-      // console.log(response); // undefined
+      // console.log(response);
       // console.log(response.data);
       this.setState({ items: response.data });
     });
     // console.log(this.state.items);
   };
 
-  // 부가 기능1 - 전체 상품 조회 버튼
+  // 부가 기능1: 전체 상품 조회 버튼
   findAll = async () => {
-    console.log('click find all btn!');
-
-    this.resetInput();
     let allBooks;
-
+    this.resetInput();
     await call('/book', 'GET', null).then((response) => {
       this.setState({ items: response.data });
       allBooks = this.state.items;
     });
 
-    // console.log('allBooks: ', allBooks);
     return allBooks;
   };
 
-  // 부가 기능2 - input 초기화 버튼
+  // 부가 기능2: input 초기화 버튼
   resetInput = () => {
-    console.log('click reset input btn!');
-
     const inputs = document.getElementsByTagName('input');
     for (let i = 0; i < inputs.length; i++) inputs[i].value = '';
   };
 
   render() {
-    var bookItems =
+    let bookItems =
       this.state.items.length > 0 &&
       this.state.items.map((item, _) => (
         <Book item={item} key={item.id} delete={this.delete} />
@@ -137,19 +101,16 @@ class App extends React.Component {
         <button onClick={this.resetInput}>입력창 초기화</button>
 
         <AddBook add={this.add} />
-        <br />
         <DeleteBook delete={this.delete} />
-        <br />
         <UpdateBook
+          items={this.state.items}
           read={this.read}
           update={this.update}
-          items={this.state.items}
           findAll={this.findAll}
         />
-        <br />
         <ReadBook read={this.read} />
 
-        <h4>Book Items Table</h4>
+        <h1>Book Items Table</h1>
         <table border="1">
           <thead>
             <tr>

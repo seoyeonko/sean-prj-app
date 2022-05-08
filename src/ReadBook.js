@@ -16,19 +16,18 @@ class ReadBook extends React.Component {
 
   readEventHandler = () => {
     console.log('read btn click!');
-    console.log(this.state.item);
     const target = this.read(this.state.item);
-    console.log(target);
-
     const title_input = document.querySelector('.read_title');
     const author_input = document.querySelector('.read_author');
     const publisher_input = document.querySelector('.read_publisher');
     const userId_input = document.querySelector('.read_userId');
     const promise1 = Promise.resolve(target); // https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Promise/resolve
 
+    // console.log(target);
+
     // primise 객체의 값에 하나씩 접근
     promise1.then((val) => {
-      console.log(val);
+      // console.log(val);
 
       title_input.value = val.title;
       author_input.value = val.author;

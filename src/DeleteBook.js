@@ -25,7 +25,7 @@ class DeleteBook extends React.Component {
     console.log(thisItem.title);
 
     this.setState({ item: thisItem });
-    console.log(thisItem);
+    // console.log(thisItem);
   };
 
   render() {

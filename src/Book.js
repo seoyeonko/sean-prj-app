@@ -9,6 +9,17 @@ class Book extends React.Component {
     this.delete = props.delete;
   }
 
+  // book item 수정; update값 바로 적용
+  componentDidUpdate(prevProp) {
+    // console.log('Component Did Update!');
+    let updateData = this.props.item;
+    let originData = prevProp.item;
+
+    if (updateData.title !== originData.title) {
+      this.setState({ item: this.props.item });
+    }
+  }
+
   deleteEventHandler = () => {
     console.log('delete btn click!');
     this.delete(this.state.item);

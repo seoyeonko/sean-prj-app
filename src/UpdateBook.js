@@ -20,8 +20,6 @@ class UpdateBook extends React.Component {
   readEventHandler = () => {
     console.log('read btn click!');
     const target = this.read(this.state.item);
-    // console.log(target);
-
     const title_input = document.querySelector('.update_title');
     const author_input = document.querySelector('.update_author');
     const publisher_input = document.querySelector('.update_publisher');
@@ -30,9 +28,6 @@ class UpdateBook extends React.Component {
 
     // promise 객체의 값에 하나씩 접근
     promise1.then((val) => {
-      // console.log(val);
-      // console.log(this.state.items);
-
       title_input.value = val.title;
       author_input.value = val.author;
       publisher_input.value = val.publisher;
@@ -43,7 +38,6 @@ class UpdateBook extends React.Component {
   updateEventHandler = async () => {
     console.log('update btn click!');
     const thisItem = this.state.item;
-
     const title_input = document.querySelector('.update_title');
     const author_input = document.querySelector('.update_author');
     const publisher_input = document.querySelector('.update_publisher');
@@ -53,35 +47,18 @@ class UpdateBook extends React.Component {
     thisItem.author = author_input.value;
     thisItem.publisher = publisher_input.value;
     thisItem.userId = userId_input.value;
-
-    console.log(thisItem);
-
-    // -------
-    // let allBooks = this.update(thisItem); // this.update(this.state.item);
-    // const promise1 = Promise.resolve(allBooks); // https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Promise/resolve
-
-    // // primise 객체의 값에 하나씩 접근
-    // promise1.then((val) => {
-    //   console.log('HERE: ', val);
-
-    //   let updateTargetId = val[0].id;
-    //   console.log(updateTargetId);
-
-    //   thisItem.id = updateTargetId;
-    // });
+    // console.log(thisItem);
 
     let findAll = this.findAll();
     const promise1 = Promise.resolve(findAll); // https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Promise/resolve
 
     // primise 객체의 값에 하나씩 접근
     await promise1.then((val) => {
-      console.log('HERE: ', val);
-
+      // console.log('HERE: ', val);
       let updateTargetId = val[0].id;
       thisItem.id = updateTargetId;
     });
-    console.log('thisItem: ', thisItem);
-
+    // console.log('thisItem: ', thisItem);
     this.update(thisItem);
   };
 
