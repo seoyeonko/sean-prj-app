@@ -103,12 +103,12 @@ class UpdateBook extends React.Component {
           placeholder="publisher"
           onChange={this.onPublisherInputChange}
         />
-        <input
+        {/* <input
           type="text"
           className="update_userId"
           placeholder="userId"
           onChange={this.onUseridInputChange}
-        />
+        /> */}
         <button onClick={this.readEventHandler}>제품 검색</button>
         <button onClick={this.updateEventHandler}>제품 수정</button>
       </div>

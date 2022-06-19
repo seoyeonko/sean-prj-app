@@ -4,20 +4,29 @@ import DeleteBook from './DeleteBook';
 import UpdateBook from './UpdateBook';
 import ReadBook from './ReadBook';
 import Book from './Book';
-import { call } from './service/ApiService';
+import {
+  Container,
+  Grid,
+  Button,
+  AppBar,
+  Toolbar,
+  Typography,
+} from '@material-ui/core';
+import { call, signout } from './service/ApiService';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       items: [],
+      loading: true, // state에 담아둔 이유; 값이 변하면 다시 rendering
     };
   }
 
   componentDidMount() {
     // GET: 전체 책 조회
     call('/book', 'GET', null).then((response) =>
-      this.setState({ items: response.data })
+      this.setState({ items: response.data, loading: false })
     );
   }
 
@@ -102,35 +111,73 @@ class App extends React.Component {
         <Book item={item} key={item.id} delete={this.delete} />
       ));
 
-    return (
+    // navigationBar 추가
+    var navigationBar = (
+      <AppBar position="static" className="navigation_bar">
+        <Toolbar>
+          <Grid justify="space-between" container>
+            <Grid item>
+              <Typography varient="h6" style={{ fontWeight: '700' }}>
+                오늘의 할일
+              </Typography>
+            </Grid>
+            <Grid>
+              <Button
+                color="inherit"
+                onClick={signout}
+                style={{ fontWeight: '700' }}
+              >
+                Logout
+              </Button>
+            </Grid>
+          </Grid>
+        </Toolbar>
+      </AppBar>
+    );
+
+    // !loading rendering ui
+    var bookListPage = (
       <div>
-        <button onClick={this.resetInput}>입력창 초기화</button>
+        {navigationBar} {/* navigationBar rendering */}
+        <Container maxWidth="md" style={{ marginTop: '4%' }}>
+          <button onClick={this.resetInput}>입력창 초기화</button>
+          <AddBook add={this.add} />
+          <ReadBook read={this.read} />
+          <UpdateBook
+            readOne={this.readOne}
+            update={this.update}
+            findAll={this.findAll}
+          />
+          <DeleteBook delete={this.delete} />
 
-        <AddBook add={this.add} />
-        <ReadBook read={this.read} />
-        <UpdateBook
-          readOne={this.readOne}
-          update={this.update}
-          findAll={this.findAll}
-        />
-        <DeleteBook delete={this.delete} />
-
-        <h1>Book Items Table</h1>
-        <table border="1">
-          <thead>
-            <tr>
-              <th>Id</th>
-              <th>Title</th>
-              <th>Author</th>
-              <th>Publisher</th>
-              <th>Userid</th>
-              <th>삭제버튼</th>
-            </tr>
-          </thead>
-          <tbody>{bookItems}</tbody>
-        </table>
+          <h1 style={{ marginTop: '8%' }}>📚 Book List</h1>
+          <table border="1">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Publisher</th>
+                <th>UserId</th>
+                <th>Delete Btn</th>
+              </tr>
+            </thead>
+            <tbody>{bookItems}</tbody>
+          </table>
+        </Container>
       </div>
     );
+
+    // loading(true) rendering ui
+    var loadingPage = <h1>Loading...</h1>;
+    var content = loadingPage;
+
+    if (!this.state.loading) {
+      // !laodign(!false) - 로딩중 아니면; todoListPage
+      content = bookListPage;
+    }
+
+    return <div className="App">{content}</div>;
   }
 }
 

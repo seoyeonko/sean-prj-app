@@ -72,12 +72,12 @@ class AddBook extends React.Component {
           value={this.state.item.publisher}
           onChange={this.onPublisherInputChange}
         />
-        <input
+        {/* <input
           type="text"
           placeholder="userId"
           value={this.state.item.userId}
           onChange={this.onUseridInputChange}
-        />
+        /> */}
         <button onClick={this.addEventHandler}>제품 추가</button>
       </div>
     );

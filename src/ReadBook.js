@@ -59,12 +59,12 @@ class ReadBook extends React.Component {
           placeholder="publisher"
           disabled
         />
-        <input
+        {/* <input
           type="text"
           className="read_userId"
           placeholder="userId"
           disabled
-        />
+        /> */}
         <button onClick={this.readEventHandler}>제품 검색</button>
       </div>
     );
