@@ -50,6 +50,7 @@ class App extends React.Component {
     let book;
 
     await call('/book/read', 'POST', target).then((response) => {
+      console.log(response);
       book = {
         title: response.data[0].title,
         author: response.data[0].author,
@@ -104,6 +105,55 @@ class App extends React.Component {
     for (let i = 0; i < inputs.length; i++) inputs[i].value = '';
   };
 
+  // tab
+  onClickTabAdd = () => {
+    console.log('click add tab');
+    const tabContentAdd = document.querySelector('.tabContent.add');
+    const tabContentRead = document.querySelector('.tabContent.read');
+    const tabContentUpdate = document.querySelector('.tabContent.update');
+    const tabContentDelete = document.querySelector('.tabContent.delete');
+    tabContentAdd.classList.remove('d-none');
+    tabContentRead.classList.add('d-none');
+    tabContentUpdate.classList.add('d-none');
+    tabContentDelete.classList.add('d-none');
+  };
+
+  onClickTabRead = () => {
+    console.log('click read tab');
+    const tabContentAdd = document.querySelector('.tabContent.add');
+    const tabContentRead = document.querySelector('.tabContent.read');
+    const tabContentUpdate = document.querySelector('.tabContent.update');
+    const tabContentDelete = document.querySelector('.tabContent.delete');
+    tabContentAdd.classList.add('d-none');
+    tabContentRead.classList.remove('d-none');
+    tabContentUpdate.classList.add('d-none');
+    tabContentDelete.classList.add('d-none');
+  };
+
+  onClickTabUpdate = () => {
+    console.log('click update tab');
+    const tabContentAdd = document.querySelector('.tabContent.add');
+    const tabContentRead = document.querySelector('.tabContent.read');
+    const tabContentUpdate = document.querySelector('.tabContent.update');
+    const tabContentDelete = document.querySelector('.tabContent.delete');
+    tabContentAdd.classList.add('d-none');
+    tabContentRead.classList.add('d-none');
+    tabContentUpdate.classList.remove('d-none');
+    tabContentDelete.classList.add('d-none');
+  };
+
+  onClickTabDelete = () => {
+    console.log('click delete tab');
+    const tabContentAdd = document.querySelector('.tabContent.add');
+    const tabContentRead = document.querySelector('.tabContent.read');
+    const tabContentUpdate = document.querySelector('.tabContent.update');
+    const tabContentDelete = document.querySelector('.tabContent.delete');
+    tabContentAdd.classList.add('d-none');
+    tabContentRead.classList.add('d-none');
+    tabContentUpdate.classList.add('d-none');
+    tabContentDelete.classList.remove('d-none');
+  };
+
   render() {
     let bookItems =
       this.state.items.length > 0 &&
@@ -117,8 +167,11 @@ class App extends React.Component {
         <Toolbar>
           <Grid justify="space-between" container>
             <Grid item>
-              <Typography varient="h6" style={{ fontWeight: '700' }}>
-                오늘의 할일
+              <Typography
+                varient="h6"
+                style={{ fontSize: '24px', fontWeight: '700' }}
+              >
+                📓 Book Store
               </Typography>
             </Grid>
             <Grid>
@@ -141,6 +194,20 @@ class App extends React.Component {
         {navigationBar} {/* navigationBar rendering */}
         <Container maxWidth="md" style={{ marginTop: '4%' }}>
           <button onClick={this.resetInput}>입력창 초기화</button>
+          <ul className="tabs">
+            <li className="tab" id="add" onClick={this.onClickTabAdd}>
+              ADD
+            </li>
+            <li className="tab" id="read" onClick={this.onClickTabRead}>
+              READ
+            </li>
+            <li className="tab" id="update" onClick={this.onClickTabUpdate}>
+              UPDATE
+            </li>
+            <li className="tab" id="delete" onClick={this.onClickTabDelete}>
+              DELETE
+            </li>
+          </ul>
           <AddBook add={this.add} />
           <ReadBook read={this.read} />
           <UpdateBook
@@ -158,7 +225,7 @@ class App extends React.Component {
                 <th>Title</th>
                 <th>Author</th>
                 <th>Publisher</th>
-                <th>UserId</th>
+                {/* <th>UserId</th> */}
                 <th>Delete Btn</th>
               </tr>
             </thead>

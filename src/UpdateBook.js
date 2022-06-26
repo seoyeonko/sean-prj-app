@@ -84,7 +84,7 @@ class UpdateBook extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="tabContent update d-none">
         <input
           type="text"
           className="update_title"
@@ -109,8 +109,8 @@ class UpdateBook extends React.Component {
           placeholder="userId"
           onChange={this.onUseridInputChange}
         /> */}
-        <button onClick={this.readEventHandler}>제품 검색</button>
-        <button onClick={this.updateEventHandler}>제품 수정</button>
+        <button onClick={this.readEventHandler}>제품 검색 🔎</button>
+        <button onClick={this.updateEventHandler}>제품 수정 🚧</button>
       </div>
     );
   }

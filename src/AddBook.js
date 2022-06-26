@@ -53,7 +53,7 @@ class AddBook extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="tabContent add">
         <input
           type="text"
           placeholder="title"
@@ -78,7 +78,7 @@ class AddBook extends React.Component {
           value={this.state.item.userId}
           onChange={this.onUseridInputChange}
         /> */}
-        <button onClick={this.addEventHandler}>제품 추가</button>
+        <button onClick={this.addEventHandler}>제품 추가 🔥</button>
       </div>
     );
   }

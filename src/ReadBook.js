@@ -40,7 +40,7 @@ class ReadBook extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="tabContent read d-none">
         <input
           type="text"
           className="read_title"
@@ -65,7 +65,7 @@ class ReadBook extends React.Component {
           placeholder="userId"
           disabled
         /> */}
-        <button onClick={this.readEventHandler}>제품 검색</button>
+        <button onClick={this.readEventHandler}>제품 검색 🔎</button>
       </div>
     );
   }

@@ -28,13 +28,13 @@ class DeleteBook extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="tabContent delete d-none">
         <input
           type="text"
           placeholder="title"
           onChange={this.onTitleInputChange}
         />
-        <button onClick={this.deleteEventHandler}>제품 삭제</button>
+        <button onClick={this.deleteEventHandler}>제품 삭제 🗑</button>
       </div>
     );
   }
